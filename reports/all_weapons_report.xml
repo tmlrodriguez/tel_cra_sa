@@ -1,0 +1,10 @@
+<odoo>
+    <record id="action_all_weapons_report" model="ir.actions.report">
+        <field name="name">Reporte de Armas y Posiciones</field>
+        <field name="model">security.assets.weapon</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">security_assets.all_weapons_report_template</field>
+        <field name="report_file">security_assets.all_weapons_report_template</field>
+        <field name="print_report_name">'Reporte de Armas - %s' % (object.display_name)</field>
+    </record>
+</odoo>

@@ -1,0 +1,75 @@
+<odoo>
+    <template id="position_weapons_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page" style="font-family: Arial, sans-serif;">
+                    <div style="background: linear-gradient(90deg, #2a74be, #1e4b8e); border-radius: 5px; padding: 10px;">
+                        <h2 style="text-align: center; font-size: 22px; font-weight: bold; color: #ffffff; margin: 0;">
+                            Reporte de Armas por Puesto
+                        </h2>
+                    </div>
+                    <t t-foreach="docs" t-as="facility">
+                        <div style="margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background: #f8faff;">
+                            <h3 style="font-size: 18px; font-weight: bold; border-left: 5px solid #1e4b8e; padding-left: 10px; color: #1e4b8e;">
+                                Puesto: <t t-esc="facility.display_name"/>
+                            </h3>
+                            <p style="font-size: 14px;"><strong>Total de Armas:</strong> <t t-esc="len(facility.position_ids.filtered(lambda p: p.weapon_id))"/></p>
+
+                            <!-- Supervisors Table -->
+                            <h4 style="color: #1e4b8e; font-weight: bold; margin-top: 20px;">Supervisores Asignados</h4>
+                            <table class="table table-bordered" style="width: 100%; border-collapse: collapse; margin-top: 10px; background: #ffffff;">
+                                <thead style="background: #2a74be; text-align: center;">
+                                    <tr>
+                                        <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">#</th>
+                                        <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Supervisor</th>
+                                        <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Teléfono</th>
+                                        <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Jefe de Distrito</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="sup_count" t-value="1"/>
+                                    <t t-foreach="facility.supervisor_ids" t-as="supervisor">
+                                        <tr t-att-style="'background-color: #eef7ff;' if sup_count % 2 == 0 else 'background-color: #ffffff;'">
+                                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center;" t-esc="sup_count"/>
+                                            <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold; color: #2a74be;" t-esc="supervisor.name"/>
+                                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center;" t-esc="supervisor.mobile_phone or '-'"/>
+                                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-style: italic;" t-esc="supervisor.district_supervisor_id.name or 'No asignado'"/>
+                                        </tr>
+                                        <t t-set="sup_count" t-value="sup_count + 1"/>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                            <!-- Weapons Table -->
+                            <h4 style="color: #1e4b8e; font-weight: bold; margin-top: 20px;">Armas Asignadas</h4>
+                            <table class="table table-bordered" style="width: 100%; border-collapse: collapse; margin-top: 10px; background: #ffffff;">
+                                <thead style="background: #2a74be; text-align: center;">
+                                    <tr>
+                                        <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">#</th>
+                                        <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Marca</th>
+                                        <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Modelo</th>
+                                        <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Número de Serie</th>
+                                        <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Ubicación</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set="count" t-value="1"/>
+                                    <t t-foreach="facility.position_ids.filtered(lambda p: p.weapon_id)" t-as="position">
+                                        <tr t-att-style="'background-color: #eef7ff;' if count % 2 == 0 else 'background-color: #ffffff;'">
+                                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center;" t-esc="count"/>
+                                            <td style="padding: 10px; border: 1px solid #ddd; color: #2a74be; font-weight: bold;" t-esc="position.weapon_id.brand_id.brand"/>
+                                            <td style="padding: 10px; border: 1px solid #ddd;" t-esc="position.weapon_id.model_id.model"/>
+                                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center;" t-esc="position.weapon_id.serial_number"/>
+                                            <td style="padding: 10px; border: 1px solid #ddd; font-style: italic;" t-esc="position.description"/>
+                                        </tr>
+                                        <t t-set="count" t-value="count + 1"/>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
