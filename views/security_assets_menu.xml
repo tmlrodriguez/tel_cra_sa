@@ -1,0 +1,12 @@
+<odoo>
+    <menuitem id="security_assets_menu" web_icon="security_assets,static/description/icon.png" name="Activos de Seguridad"/>
+    <menuitem id="agents_group_menu" sequence="1" parent="security_assets.security_assets_menu" name="Agentes"/>
+    <menuitem id="district_manager_menu" parent="security_assets.agents_group_menu" name="Jefes de Distrito" action="district_manager_action"/>
+    <menuitem id="supervisor_menu" parent="security_assets.agents_group_menu" name="Supervisores" action="supervisor_action"/>
+    <menuitem id="facility_menu" parent="security_assets.security_assets_menu" name="Puestos" action="facility_action"/>
+    <menuitem id="position_menu" parent="security_assets.security_assets_menu" name="Ubicaciones" action="position_action"/>
+    <menuitem id="weapons_group_menu" sequence="4" parent="security_assets.security_assets_menu" name="Armamento"/>
+    <menuitem id="brand_menu" parent="security_assets.weapons_group_menu" name="Marcas" action="brand_action"/>
+    <menuitem id="model_menu" parent="security_assets.weapons_group_menu" name="Modelos" action="model_action"/>
+    <menuitem id="weapon_menu" parent="security_assets.weapons_group_menu" name="Armas Asignadas" action="weapons_action"/>
+</odoo>

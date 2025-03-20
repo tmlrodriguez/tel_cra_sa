@@ -1,0 +1,69 @@
+<odoo>
+    <template id="weapon_assignment_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page" style="font-family: Arial, sans-serif; padding: 20px;">
+                    <div style="background: linear-gradient(90deg, #2a74be, #1e4b8e); border-radius: 5px; padding: 10px;">
+                        <h2 style="text-align: center; font-size: 22px; font-weight: bold; color: #ffffff; margin: 0;">
+                            Confirmación de Asignación de Arma
+                        </h2>
+                    </div>
+                    <div style="margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background: #f8faff;">
+                        <h3 style="font-size: 18px; font-weight: bold; border-left: 5px solid #1e4b8e; padding-left: 10px; color: #1e4b8e;">
+                            Puesto: <t t-esc="docs.display_name or 'No Asignado'"/>
+                        </h3>
+                        <p style="font-size: 16px;">
+                            Se certifica que el arma <strong><t t-esc="docs.weapon_id.display_name or 'No Asignado'"/></strong>
+                            ha sido asignada a la siguiente posición.
+                        </p>
+                    </div>
+                    <h4 style="color: #1e4b8e; font-weight: bold; margin-top: 20px;">Detalles del Arma</h4>
+                    <table class="table table-bordered" style="width: 100%; border-collapse: collapse; margin-top: 10px; background: #ffffff;">
+                        <thead style="background: #2a74be; text-align: center;">
+                            <tr>
+                                <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Marca</th>
+                                <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Modelo</th>
+                                <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Número de Serie</th>
+                                <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Ubicación</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background-color: #f9f9f9;">
+                                <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold; color: #2a74be;" t-esc="docs.weapon_id.brand_id.brand or 'N/A'"/>
+                                <td style="padding: 10px; border: 1px solid #ddd;" t-esc="docs.weapon_id.model_id.model or 'N/A'"/>
+                                <td style="padding: 10px; border: 1px solid #ddd; text-align: center;" t-esc="docs.weapon_id.serial_number or 'N/A'"/>
+                                <td style="padding: 10px; border: 1px solid #ddd; font-style: italic;" t-esc="docs.description or 'No Asignado'"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h4 style="color: #1e4b8e; font-weight: bold; margin-top: 20px;">Firmas de Aprobación</h4>
+                    <table class="table table-bordered" style="width: 100%; border-collapse: collapse; margin-top: 10px; background: #ffffff;">
+                        <thead style="background: #2a74be; text-align: center;">
+                            <tr>
+                                <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Jefe de Distrito</th>
+                                <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Firma</th>
+                                <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Supervisor</th>
+                                <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Firma</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold; color: #2a74be;">
+                                    <t t-esc="docs.facility_id.supervisor_ids and docs.facility_id.supervisor_ids[0].district_supervisor_id.name or 'No Asignado'"/>
+                                </td>
+                                <td style="padding: 10px; border: 1px solid #ddd; height: 50px;"></td>
+                                <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">
+                                    <t t-foreach="docs.facility_id.supervisor_ids" t-as="supervisor">
+                                        <div><t t-esc="supervisor.name"/></div>
+                                    </t>
+                                </td>
+                                <td style="padding: 10px; border: 1px solid #ddd;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

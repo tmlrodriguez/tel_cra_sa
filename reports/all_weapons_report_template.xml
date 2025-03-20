@@ -1,0 +1,51 @@
+<odoo>
+    <template id="all_weapons_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page" style="font-family: Arial, sans-serif;">
+                    <div style="background: linear-gradient(90deg, #2a74be, #1e4b8e); border-radius: 5px; padding: 10px;">
+                        <h2 style="text-align: center; font-size: 22px; font-weight: bold; color: #ffffff; margin: 0;">
+                            Reporte de Armas Asignadas
+                        </h2>
+                    </div>
+                    <div style="padding: 15px; border: 1px solid #ddd; border-radius: 5px; background: #f8faff;">
+                        <h4 style="color: #1e4b8e; font-weight: bold;">Armas Asignadas</h4>
+                        <table class="table table-bordered" style="width: 100%; border-collapse: collapse; margin-top: 10px; background: #ffffff;">
+                            <thead style="background: #2a74be; text-align: center;">
+                                <tr>
+                                    <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">#</th>
+                                    <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Marca</th>
+                                    <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Modelo</th>
+                                    <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Número de Serie</th>
+                                    <th style="padding: 10px; color: #FFFFFF; font-weight: bold; border: 1px solid #ddd;">Ubicación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="count" t-value="1"/>
+                                <t t-foreach="docs" t-as="weapon">
+                                    <tr t-att-style="'background-color: #eef7ff;' if count % 2 == 0 else 'background-color: #ffffff;'">
+                                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;" t-esc="count"/>
+                                        <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold; color: #2a74be;">
+                                            <t t-esc="weapon.brand_id.brand or 'N/A'"/>
+                                        </td>
+                                        <td style="padding: 10px; border: 1px solid #ddd;" t-esc="weapon.model_id.model or 'N/A'"/>
+                                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;" t-esc="weapon.serial_number or 'N/A'"/>
+                                        <td style="padding: 10px; border: 1px solid #ddd; font-style: italic;">
+                                            <t t-if="weapon.position_id">
+                                                <t t-esc="weapon.position_id.facility_id.display_name"/> - <t t-esc="weapon.position_id.description"/>
+                                            </t>
+                                            <t t-if="not weapon.position_id">
+                                                No Asignado
+                                            </t>
+                                        </td>
+                                    </tr>
+                                    <t t-set="count" t-value="count + 1"/>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
