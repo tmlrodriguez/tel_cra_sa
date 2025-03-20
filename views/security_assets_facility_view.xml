@@ -1,0 +1,60 @@
+<odoo>
+    <record id="facility_tree_view" model="ir.ui.view">
+        <field name="name">facility.tree</field>
+        <field name="model">security.assets.facility</field>
+        <field name="arch" type="xml">
+            <list string="Puestos">
+                <field name="location_name"/>
+                <field name="partner_id"/>
+                <field name="address"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="facility_form_view" model="ir.ui.view">
+        <field name="name">facility.form</field>
+        <field name="model">security.assets.facility</field>
+        <field name="arch" type="xml">
+            <form string="Crear Puesto">
+                <header>
+                    <button name="security_assets.action_position_weapons_report" string="Imprimir Reporte de Armas Asignadas" type="action" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id" placeholder="Seleccione una empresa o individuo"/>
+                            <field name="location_name" placeholder="Defina un nombre a la facilidad (Ej. Tienda Principal)"/>
+                            <field name="address" placeholder="Provea una direccion fisica"/>
+                            <field name="notes" placeholder="Agregue notas adicionales (Opcional)"/>
+                        </group>
+                        <notebook>
+                            <page string="Supervisores">
+                                <field name="supervisor_ids" options="{'create': False, 'create_edit': False}">
+                                    <list editable="bottom">
+                                        <field name="name"/>
+                                        <field name="mobile_phone"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Ubicaciones">
+                                <field name="position_ids">
+                                    <list editable="bottom">
+                                        <field name="description"/>
+                                        <field name="notes"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="facility_action" model="ir.actions.act_window">
+        <field name="name">Puestos</field>
+        <field name="res_model">security.assets.facility</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
