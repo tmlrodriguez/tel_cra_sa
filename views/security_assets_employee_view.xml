@@ -1,0 +1,71 @@
+<odoo>
+    <record id="agent_form_view" model="ir.ui.view">
+        <field name="name">agent.form.view</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="job_id" position="attributes">
+                <attribute name="domain">[('name', 'in', ['Supervisor', 'Jefe de Distrito'])]</attribute>
+            </field>
+            <field name="coach_id" position="after">
+                <field name="selected_job_name" invisible="1"/>
+                <field name="district_supervisor_id" domain="[('job_id.name', '=', 'Jefe de Distrito')]" options="{'no_create': True, 'no_create_edit': True}" invisible="selected_job_name != 'Supervisor'"/>
+            </field>
+            <notebook>
+                <page string="Supervisores" name="supervisors" invisible="selected_job_name != 'Jefe de Distrito'">
+                    <field name="supervisor_ids" widget="many2many" options="{'create': False, 'create_edit': False}"/>
+                </page>
+                <page string="Puestos" name="facilities" invisible="selected_job_name != 'Supervisor'">
+                    <field name="facility_ids" widget="many2many">
+                        <list>
+                            <field name="location_name"/>
+                            <field name="address"/>
+                        </list>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="supervisor_tree_view" model="ir.ui.view">
+        <field name="name">supervisor.tree.view</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <list string="Supervisores">
+                <field name="name"/>
+                <field name="mobile_phone"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="district_manager_tree_view" model="ir.ui.view">
+        <field name="name">district.manager.tree.view</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <list string="Agentes">
+                <field name="name"/>
+                <field name="mobile_phone"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="supervisor_action" model="ir.actions.act_window">
+        <field name="name">Supervisores</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('job_id.name', '=', 'Supervisor')]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                                      (0, 0, {'view_mode': 'list', 'view_id': ref('supervisor_tree_view')}),
+                                      (0, 0, {'view_mode': 'form', 'view_id': ref('agent_form_view')})]"/>
+    </record>
+
+    <record id="district_manager_action" model="ir.actions.act_window">
+        <field name="name">Jefes de Distrito</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('job_id.name', '=', 'Jefe de Distrito')]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                                      (0, 0, {'view_mode': 'list', 'view_id': ref('district_manager_tree_view')}),
+                                      (0, 0, {'view_mode': 'form', 'view_id': ref('agent_form_view')})]"/>
+    </record>
+</odoo>

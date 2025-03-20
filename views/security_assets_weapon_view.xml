@@ -1,0 +1,142 @@
+<odoo>
+
+    <record id="brand_tree_view" model="ir.ui.view">
+        <field name="name">brand.tree</field>
+        <field name="model">security.assets.brand</field>
+        <field name="arch" type="xml">
+            <list string="Marca">
+                <field name="brand"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="brand_form_view" model="ir.ui.view">
+        <field name="name">brand.form</field>
+        <field name="model">security.assets.brand</field>
+        <field name="arch" type="xml">
+            <form string="Crear Marca">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="brand" placeholder="Defina una marca de arma"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="model_tree_view" model="ir.ui.view">
+        <field name="name">model.tree</field>
+        <field name="model">security.assets.model</field>
+        <field name="arch" type="xml">
+            <list string="Modelo">
+                <field name="brand_id"/>
+                <field name="model"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="model_form_view" model="ir.ui.view">
+        <field name="name">model.form</field>
+        <field name="model">security.assets.model</field>
+        <field name="arch" type="xml">
+            <form string="Crear Modelo">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="brand_id" placeholder="Seleccione la marca del modelo"/>
+                            <field name="model" placeholder="Defina el modelo del arma"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="weapon_tree_view" model="ir.ui.view">
+        <field name="name">weapon.tree</field>
+        <field name="model">security.assets.weapon</field>
+        <field name="arch" type="xml">
+            <list string="Armas">
+                <header>
+                    <button name="security_assets.action_all_weapons_report" string="Imprimir Listado de Armas" type="action" class="btn-primary"/>
+                </header>
+                <field name="brand_id"/>
+                <field name="model_id"/>
+                <field name="serial_number"/>
+                <field name="reference_number"/>
+                <field name="weapon_license"/>
+                <field name="position_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="weapon_form_view" model="ir.ui.view">
+        <field name="name">weapon.form</field>
+        <field name="model">security.assets.weapon</field>
+        <field name="arch" type="xml">
+            <form string="Crear Arma">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="brand_id" placeholder="Seleccione una marca de arma"/>
+                            <field name="model_id" placeholder="Seleccione un modelo de arma" domain="[('brand_id', '=', brand_id)]"/>
+                            <field name="serial_number" placeholder="Agregue el numero de serie del arma"/>
+                            <field name="reference_number" placeholder="Agregue el numero de referencia del arma"/>
+                            <field name="weapon_status" placeholder="Seleccione el estado del arma"/>
+                            <field name="weapon_license" placeholder="Seleccione el permiso del arma"/>
+                            <field name="valid_until" placeholder="Defina la fecha de expiracion" invisible="weapon_license != 'valid'"/>
+                            <field name="notes" placeholder="Agregue notas adicionales (Opcional)"/>
+                        </group>
+                        <group>
+                            <field name="image" widget="image" class="oe_avatar" placeholder="Elegir una imagen del arma"/>
+                            <field name="position_id"/>
+                        </group>
+                        <notebook>
+                            <page string="Historial de Movimientos">
+                                <field name="history_ids">
+                                    <list>
+                                        <field name="movement_date"/>
+                                        <field name="movement_type"/>
+                                        <field name="position_id"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="brand_action" model="ir.actions.act_window">
+        <field name="name">Marcas</field>
+        <field name="res_model">security.assets.brand</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                              (0, 0, {'view_mode': 'list', 'view_id': ref('brand_tree_view')}),
+                              (0, 0, {'view_mode': 'form', 'view_id': ref('brand_form_view')})]"/>
+    </record>
+
+    <record id="model_action" model="ir.actions.act_window">
+        <field name="name">Modelos</field>
+        <field name="res_model">security.assets.model</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                              (0, 0, {'view_mode': 'list', 'view_id': ref('model_tree_view')}),
+                              (0, 0, {'view_mode': 'form', 'view_id': ref('model_form_view')})]"/>
+    </record>
+
+    <record id="weapons_action" model="ir.actions.act_window">
+        <field name="name">Armamento</field>
+        <field name="res_model">security.assets.weapon</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                              (0, 0, {'view_mode': 'list', 'view_id': ref('weapon_tree_view')}),
+                              (0, 0, {'view_mode': 'form', 'view_id': ref('weapon_form_view')})]"/>
+    </record>
+</odoo>
