@@ -27,7 +27,7 @@
     ],
     'assets': {
             'web.assets_backend': [
-                'security_assets/static/img/icon.png',
+                'craes_security_assets/static/img/icon.png',
             ],
     },
     'images': ['static/description/icon.png'],
