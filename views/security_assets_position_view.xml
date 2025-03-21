@@ -16,7 +16,7 @@
         <field name="arch" type="xml">
             <form string="Crear Ubicacion">
                 <header invisible="weapon_id == False">
-                    <button name="security_assets.action_weapon_assignment_report" string="Imprimir Reporte de Armas Asignadas" type="action" class="btn-primary"/>
+                    <button name="craes_security_assets.action_weapon_assignment_report" string="Imprimir Reporte de Armas Asignadas" type="action" class="btn-primary"/>
                 </header>
                 <sheet>
                     <group>
