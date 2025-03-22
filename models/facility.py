@@ -9,7 +9,7 @@ class Facility(models.Model):
     _inherit = ['mail.thread']
 
     display_name = fields.Char(compute='_compute_display_name', string='Display Name', store=True)
-    partner_id = fields.Many2one('res.partner', string='Empresa', required=True, tracking=True)
+    partner_id = fields.Many2one('res.partner', string='Empresa', required=True, tracking=True, domain=[('company_id', '=', False),  ('employee', '=', False), ('parent_id', '=', False), ('employee_ids', '=', False), ('user_ids', '=', False)])
     location_name = fields.Char(string='Nombre de Puesto', required=True, tracking=True)
     address = fields.Text(string='Dirección', required=True, tracking=True)
     notes = fields.Text(string="Notas Adicionales", tracking=True)

@@ -6,8 +6,10 @@
     'author': 'Telematica',
     'category': 'Base',
     'version': '18.0.0.1',
-    'depends': ['base', 'mail', 'hr'],
+    'depends': ['base', 'contacts', 'mail', 'hr'],
     'data': [
+        #Data
+        'data/hr_job_data.xml',
         # Security
         'security/ir.model.access.csv',
         # Reports
