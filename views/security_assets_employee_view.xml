@@ -4,9 +4,7 @@
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
-            <field name="job_id" position="attributes">
-                <attribute name="domain">[('name', 'in', ['Supervisor', 'Jefe de Distrito'])]</attribute>
-            </field>
+            <field name="job_id"/>
             <field name="coach_id" position="after">
                 <field name="selected_job_name" invisible="1"/>
                 <field name="district_supervisor_id" domain="[('job_id.name', '=', 'Jefe de Distrito')]" options="{'no_create': True, 'no_create_edit': True}" invisible="selected_job_name != 'Supervisor'"/>
