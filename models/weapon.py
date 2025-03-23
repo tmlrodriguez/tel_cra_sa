@@ -138,7 +138,7 @@ class Weapon(models.Model):
         self.env['security.assets.weapon.history'].create({'weapon_id': self.id, 'position_id': position.id, 'movement_type': movement_type, 'movement_date': fields.Datetime.now()})
 
     def action_all_weapons_report(self):
-        return self.env.ref('craes_security_assets.action_all_weapons_report').report_action(self)
+        return self.env.ref('tel_cra_sa.action_all_weapons_report').report_action(self)
 
 class WeaponMovementHistory(models.Model):
     _name = 'security.assets.weapon.history'

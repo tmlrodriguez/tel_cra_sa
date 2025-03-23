@@ -29,7 +29,7 @@
     ],
     'assets': {
             'web.assets_backend': [
-                'craes_security_assets/static/img/icon.png',
+                'tel_cra_sa/static/img/icon.png',
             ],
     },
     'images': ['static/description/icon.png'],
