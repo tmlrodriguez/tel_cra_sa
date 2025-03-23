@@ -17,7 +17,7 @@
         <field name="arch" type="xml">
             <form string="Crear Puesto">
                 <header>
-                    <button name="craes_security_assets.action_position_weapons_report" string="Imprimir Reporte de Armas Asignadas" type="action" class="btn-primary"/>
+                    <button name="tel_cra_sa.action_position_weapons_report" string="Imprimir Reporte de Armas Asignadas" type="action" class="btn-primary"/>
                 </header>
                 <sheet>
                     <group>

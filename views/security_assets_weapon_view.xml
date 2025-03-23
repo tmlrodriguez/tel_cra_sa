@@ -62,7 +62,7 @@
         <field name="arch" type="xml">
             <list string="Armas">
                 <header>
-                    <button name="craes_security_assets.action_all_weapons_report" string="Imprimir Listado de Armas" type="action" class="btn-primary"/>
+                    <button name="tel_cra_sa.action_all_weapons_report" string="Imprimir Listado de Armas" type="action" class="btn-primary"/>
                 </header>
                 <field name="brand_id"/>
                 <field name="model_id"/>
