@@ -6,6 +6,7 @@
             <list string="Ubicaciones">
                 <field name="facility_id"/>
                 <field name="description"/>
+                <field name="weapon_id"/>
             </list>
         </field>
     </record>
