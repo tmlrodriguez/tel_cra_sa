@@ -5,6 +5,7 @@
     <menuitem id="supervisor_menu" parent="tel_cra_sa.agents_group_menu" name="Supervisores" action="supervisor_action"/>
     <menuitem id="facility_menu" parent="tel_cra_sa.security_assets_menu" name="Puestos" action="facility_action"/>
     <menuitem id="position_menu" parent="tel_cra_sa.security_assets_menu" name="Ubicaciones" action="position_action"/>
+    <menuitem id="warehouse_menu" parent="tel_cra_sa.security_assets_menu" name="Almacenes" action="warehouse_action"/>
     <menuitem id="weapons_group_menu" sequence="4" parent="tel_cra_sa.security_assets_menu" name="Armamento"/>
     <menuitem id="brand_menu" parent="tel_cra_sa.weapons_group_menu" name="Marcas" action="brand_action"/>
     <menuitem id="model_menu" parent="tel_cra_sa.weapons_group_menu" name="Modelos" action="model_action"/>

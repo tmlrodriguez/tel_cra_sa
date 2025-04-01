@@ -1,0 +1,52 @@
+<odoo>
+    <record id="warehouse_tree_view" model="ir.ui.view">
+        <field name="name">warehouse.tree</field>
+        <field name="model">security.assets.warehouse</field>
+        <field name="arch" type="xml">
+            <list string="Almacenes">
+                <field name="name"/>
+                <field name="address"/>
+                <field name="notes"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="warehouse_form_view" model="ir.ui.view">
+        <field name="name">warehouse.form</field>
+        <field name="model">security.assets.warehouse</field>
+        <field name="arch" type="xml">
+            <form string="Almacen">
+               <header>
+                    <button name="tel_cra_sa.action_warehouse_weapons_report" string="Imprimir Reporte de Armas en Almacen" type="action" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" placeholder="Nombre de la bodega"/>
+                            <field name="address" placeholder="Dirección o ubicación de la bodega"/>
+                            <field name="notes" placeholder="Notas adicionales (opcional)"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Armas Almacenadas">
+                            <field name="weapon_ids" widget="many2many" options="{'create': False, 'create_edit': False}">
+                                <list>
+                                    <field name="display_name"/>
+                                    <field name="serial_number"/>
+                                    <field name="reference_number"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="warehouse_action" model="ir.actions.act_window">
+        <field name="name">Almacenes</field>
+        <field name="res_model">security.assets.warehouse</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
