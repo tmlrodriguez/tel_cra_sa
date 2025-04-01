@@ -19,11 +19,14 @@
         'reports/position_weapons_report_template.xml',
         'reports/weapon_assignment_report.xml',
         'reports/weapon_assignment_report_template.xml',
+        'reports/warehouse_weapons_report.xml',
+        'reports/warehouse_weapons_report_template.xml',
         # Views
         'views/security_assets_employee_view.xml',
         'views/security_assets_facility_view.xml',
         'views/security_assets_position_view.xml',
         'views/security_assets_weapon_view.xml',
+        'views/security_assets_warehouse_view.xml',
         # Menu
         'views/security_assets_menu.xml',
     ],
