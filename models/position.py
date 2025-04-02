@@ -21,7 +21,7 @@ class Position(models.Model):
         'security.assets.weapon',
         string='Arma Asignada',
         ondelete='restrict',
-        domain="[('position_id', '=', False)]",
+        domain="[('position_id', '=', False), ('warehouse_id', '=', False)]",
         tracking=True
     )
     notes = fields.Text(string='Notas Adicionales', tracking=True)

@@ -77,6 +77,7 @@ class Weapon(models.Model):
     weapon_license = fields.Selection([('valid', 'Vigente'), ('expired', 'Vencidos'), ('no_document', 'Sin Papeles'), ('indistinct', 'Titular Distinto a Craes')], string='Permiso de Arma', required=True, tracking=True)
     valid_until = fields.Date(string='Vigente Hasta', tracking=True)
     position_id = fields.Many2one('security.assets.position', string='Ubicación Asignada', ondelete='restrict', domain="[('weapon_id', '=', False)]", readonly=True, tracking=True)
+    warehouse_id = fields.Many2one('security.assets.warehouse', string='Almacén', ondelete='restrict', domain="[('weapon_ids', '=', False)]", readonly=True, tracking=True)
     notes = fields.Text(string='Notas Adicionales', tracking=True)
     history_ids = fields.One2many(
         'security.assets.weapon.history',
@@ -107,6 +108,12 @@ class Weapon(models.Model):
                 if valid_until_date < fields.Date.today():
                     raise ValidationError("La fecha de expiración del permiso debe ser mayor a hoy.")
 
+    @api.constrains('position_id', 'warehouse_id')
+    def _check_exclusive_assignment(self):
+        for record in self:
+            if record.position_id and record.warehouse_id:
+                raise ValidationError("Un arma no puede estar asignada a una ubicación y a un almacén al mismo tiempo.")
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
@@ -134,8 +141,14 @@ class Weapon(models.Model):
                 vals['valid_until'] = False
         return super().write(vals)
 
-    def _log_weapon_movement(self, movement_type, position):
-        self.env['security.assets.weapon.history'].create({'weapon_id': self.id, 'position_id': position.id, 'movement_type': movement_type, 'movement_date': fields.Datetime.now()})
+    def _log_weapon_movement(self, movement_type, position=None, warehouse=None):
+        self.env['security.assets.weapon.history'].create({
+            'weapon_id': self.id,
+            'position_id': position.id if position else False,
+            'warehouse_id': warehouse.id if warehouse else False,
+            'movement_type': movement_type,
+            'movement_date': fields.Datetime.now()
+        })
 
     def action_all_weapons_report(self):
         return self.env.ref('tel_cra_sa.action_all_weapons_report').report_action(self)
@@ -147,9 +160,12 @@ class WeaponMovementHistory(models.Model):
 
     weapon_id = fields.Many2one('security.assets.weapon', string='Arma', required=True, ondelete='cascade')
     position_id = fields.Many2one('security.assets.position', string='Ubicación', ondelete='set null')
+    warehouse_id = fields.Many2one('security.assets.warehouse', string='Almacén', ondelete='set null')
     movement_type = fields.Selection([
-        ('assigned', 'Asignado'),
-        ('unassigned', 'Desasignado')
+        ('assigned', 'Asignado a Posición'),
+        ('unassigned', 'Desasignado de Posición'),
+        ('stored', 'Almacenado en Almacén'),
+        ('removed', 'Removido de Almacén')
     ], string="Tipo de Movimiento", required=True)
     movement_date = fields.Datetime(string="Fecha del Movimiento", default=fields.Datetime.now, required=True)
 

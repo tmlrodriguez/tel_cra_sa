@@ -1,6 +1,7 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
 facility_access,facility.access,model_security_assets_facility,base.group_user,1,1,1,1
 position_access,position.access,model_security_assets_position,base.group_user,1,1,1,1
+warehouse_access,warehouse.access,model_security_assets_warehouse,base.group_user,1,1,1,1
 brand_access,brand.access,model_security_assets_brand,base.group_user,1,1,1,1
 model_access,model.access,model_security_assets_model,base.group_user,1,1,1,1
 weapon_access,weapon.access,model_security_assets_weapon,base.group_user,1,1,1,1

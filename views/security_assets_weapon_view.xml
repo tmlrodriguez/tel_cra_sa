@@ -94,6 +94,7 @@
                         <group>
                             <field name="image" widget="image" class="oe_avatar" placeholder="Elegir una imagen del arma"/>
                             <field name="position_id"/>
+                            <field name="warehouse_id"/>
                         </group>
                         <notebook>
                             <page string="Historial de Movimientos">
@@ -102,6 +103,7 @@
                                         <field name="movement_date"/>
                                         <field name="movement_type"/>
                                         <field name="position_id"/>
+                                        <field name="warehouse_id"/>
                                     </list>
                                 </field>
                             </page>
